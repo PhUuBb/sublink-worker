@@ -32,31 +32,41 @@ export const SING_BOX_CONFIG = {
 			}
 		],
 		rules: [
-			{
-				rule_set: "geolocation-!cn",
-				query_type: [
-					"A",
-					"AAAA"
-				],
-				server: "dns_fakeip"
-			},
-			{
-				rule_set: "geolocation-!cn",
-				query_type: "CNAME",
-				server: "dns_proxy"
-			},
-			{
-				query_type: [
-					"A",
-					"AAAA",
-					"CNAME"
-				],
-				invert: true,
-				action: "predefined",
-				rcode: "REFUSED"
-			}
-		],
-		final: "dns_direct"
+    {
+        rule_set: [
+            "geolocation-cn",
+            "cn"
+        ],
+        query_type: [
+            "A",
+            "AAAA",
+            "CNAME"
+        ],
+        server: "dns_direct"
+    },
+    {
+        query_type: [
+            "A",
+            "AAAA"
+        ],
+        server: "dns_fakeip"
+    },
+    {
+        query_type: "CNAME",
+        server: "dns_proxy"
+    },
+    {
+        query_type: [
+            "A",
+            "AAAA",
+            "CNAME"
+        ],
+        invert: true,
+        action: "predefined",
+        rcode: "REFUSED"
+    }
+],
+final: "dns_proxy"
 	},
 	ntp: {
 		enabled: true,
